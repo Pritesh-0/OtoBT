@@ -5,6 +5,10 @@
 				<AtWP   name="AtWP"/>
 				<GotoWP name="GotoWP"/>
 			</Fallback>
+			<Fallback name="TSFallback">
+				<TubeFound name="TubeFound"/>
+				<SearchTube name="SearchTube"/>
+			</Fallback>
 		</Sequence>
 	</BehaviorTree>
 </root>

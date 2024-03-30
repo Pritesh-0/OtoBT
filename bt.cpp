@@ -39,6 +39,39 @@ class GotoWP : public BT::SyncActionNode
 };
 
 //TubeFound
+class TubeFound : public BT::SyncActionNode
+{
+        public:
+                explicit TubeFound(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Checking if the Tube is in sight: "<<this->name() <<std::endl;
+			int status;std::cin>>status;
+                        if(status){
+                                std::cout<<"Tube is in Sight"<<std::endl;
+                                return BT::NodeStatus::SUCCESS;
+                        }
+                        else{
+                                return BT::NodeStatus::FAILURE;
+                        }
+
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+//SearchTube
+class SearchTube : public BT::SyncActionNode
+{
+        public:
+                explicit SearchTube(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Searching for Tube\nTube Found: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
 
 
 int main()
@@ -46,6 +79,8 @@ int main()
 	BT::BehaviorTreeFactory factory;
 	factory.registerNodeType<AtWP>("AtWP");
 	factory.registerNodeType<GotoWP>("GotoWP");
+	factory.registerNodeType<TubeFound>("TubeFound");
+	factory.registerNodeType<SearchTube>("SearchTube");
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 
