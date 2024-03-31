@@ -112,6 +112,32 @@ class CloseGripper : public BT::SyncActionNode
                 }
 };
 
+//ApproachTube using arm
+class ApproachTube : public BT::SyncActionNode
+{
+        public:
+                explicit ApproachTube(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Approaching the Tube using Arm: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+//GotoStorage using arm
+class GotoStorage : public BT::SyncActionNode
+{
+        public:
+                explicit GotoStorage(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Moving to Storage using Arm: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
 int main()
 {
 	BT::BehaviorTreeFactory factory;
@@ -121,7 +147,9 @@ int main()
 	factory.registerNodeType<SearchTube>("SearchTube");
 	factory.registerNodeType<GotoTube>("GotoTube");
 	factory.registerNodeType<OpenGripper>("OpenGripper");
+	factory.registerNodeType<ApproachTube>("ApproachTube");
 	factory.registerNodeType<CloseGripper>("CloseGripper");
+	factory.registerNodeType<GotoStorage>("GotoStorage");
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 

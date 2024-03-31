@@ -12,8 +12,10 @@
 			<Sequence name="TubePlacingSequence">
 				<GotoTube name="GotoTube"/>
 				<OpenGripper name="OpenGripper"/>
-
+				<ApproachTube name="ApproachTube"/>
 				<CloseGripper name="CloseGripper"/>
+				<GotoStorage name="GotoStorage"/>
+				<OpenGripper name="OpenGripper"/>
 			</Sequence>
 		</Sequence>
 	</BehaviorTree>
