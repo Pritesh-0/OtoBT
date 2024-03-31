@@ -11,6 +11,9 @@
 			</Fallback>
 			<Sequence name="TubePlacingSequence">
 				<GotoTube name="GotoTube"/>
+				<OpenGripper name="OpenGripper"/>
+
+				<CloseGripper name="CloseGripper"/>
 			</Sequence>
 		</Sequence>
 	</BehaviorTree>

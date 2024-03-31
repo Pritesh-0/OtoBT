@@ -87,8 +87,30 @@ class GotoTube : public BT::SyncActionNode
 };
 
 //OpenGripper
+class OpenGripper : public BT::SyncActionNode
+{
+        public:
+                explicit OpenGripper(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Opening the Gripper: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
 
 //CloseGripper
+class CloseGripper : public BT::SyncActionNode
+{
+        public:
+                explicit CloseGripper(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Closing the Gripper: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
 
 int main()
 {
@@ -98,6 +120,8 @@ int main()
 	factory.registerNodeType<TubeFound>("TubeFound");
 	factory.registerNodeType<SearchTube>("SearchTube");
 	factory.registerNodeType<GotoTube>("GotoTube");
+	factory.registerNodeType<OpenGripper>("OpenGripper");
+	factory.registerNodeType<CloseGripper>("CloseGripper");
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 
