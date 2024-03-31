@@ -205,6 +205,46 @@ class GotoTD : public BT::SyncActionNode
                 }
 };
 
+//PickTube
+class PickTube : public BT::SyncActionNode
+{
+        public:
+                explicit PickTube(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Arm Picks Tube from the Storage: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+//PlaceTube
+class PlaceTube : public BT::SyncActionNode
+{
+        public:
+                explicit PlaceTube(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Arm places the tube in the Tube Drop: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+//Park
+class Park : public BT::SyncActionNode
+{
+        public:
+                explicit Park(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Rover Parks near to the Final Point: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+
 
 
 int main()
@@ -223,7 +263,9 @@ int main()
 	factory.registerNodeType<SearchFP>("SearchFP");
 	factory.registerNodeType<TDNearby>("TDNearby");
 	factory.registerNodeType<GotoTD>("GotoTD");
-
+	factory.registerNodeType<PickTube>("PickTube");
+	factory.registerNodeType<PlaceTube>("PlaceTube");
+	factory.registerNodeType<Park>("Park");
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 
