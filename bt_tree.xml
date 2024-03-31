@@ -17,6 +17,10 @@
 				<GotoStorage name="GotoStorage"/>
 				<OpenGripper name="OpenGripper"/>
 			</Sequence>
+			<Fallback name="FPFallback">
+				<AtFP name="AtFP"/>
+				<SearchFP name="SearchFP"/>
+			</Fallback>
 		</Sequence>
 	</BehaviorTree>
 </root>

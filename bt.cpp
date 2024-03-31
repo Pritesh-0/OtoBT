@@ -138,6 +138,43 @@ class GotoStorage : public BT::SyncActionNode
                 }
 };
 
+//AtFP
+class AtFP : public BT::SyncActionNode
+{
+        public:
+                explicit AtFP(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Checking if Final Point is in sight: "<<this->name() <<std::endl;
+                        int status;std::cin>>status;
+                        if(status){
+                                std::cout<<"FP is in Sight"<<std::endl;
+                                return BT::NodeStatus::SUCCESS;
+                        }
+                        else{
+                                return BT::NodeStatus::FAILURE;
+                        }
+
+                }
+};
+
+//SearchFP
+class SearchFP : public BT::SyncActionNode
+{
+        public:
+                explicit SearchFP(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Rover Searches for FP while avoiding obstacles\nFP Found: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+
+
+
 int main()
 {
 	BT::BehaviorTreeFactory factory;
@@ -150,6 +187,9 @@ int main()
 	factory.registerNodeType<ApproachTube>("ApproachTube");
 	factory.registerNodeType<CloseGripper>("CloseGripper");
 	factory.registerNodeType<GotoStorage>("GotoStorage");
+	factory.registerNodeType<AtFP>("AtFP");
+	factory.registerNodeType<SearchFP>("SearchFP");
+
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 
