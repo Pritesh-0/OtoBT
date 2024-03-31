@@ -9,6 +9,9 @@
 				<TubeFound name="TubeFound"/>
 				<SearchTube name="SearchTube"/>
 			</Fallback>
+			<Sequence name="TubePlacingSequence">
+				<GotoTube name="GotoTube"/>
+			</Sequence>
 		</Sequence>
 	</BehaviorTree>
 </root>

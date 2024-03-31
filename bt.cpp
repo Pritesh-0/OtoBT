@@ -73,6 +73,22 @@ class SearchTube : public BT::SyncActionNode
                 }
 };
 
+//GotoTube
+class GotoTube : public BT::SyncActionNode
+{
+        public:
+                explicit GotoTube(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Going towards Tube: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
+
+//OpenGripper
+
+//CloseGripper
 
 int main()
 {
@@ -81,6 +97,7 @@ int main()
 	factory.registerNodeType<GotoWP>("GotoWP");
 	factory.registerNodeType<TubeFound>("TubeFound");
 	factory.registerNodeType<SearchTube>("SearchTube");
+	factory.registerNodeType<GotoTube>("GotoTube");
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
 
