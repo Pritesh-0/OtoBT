@@ -21,6 +21,10 @@
 				<AtFP name="AtFP"/>
 				<SearchFP name="SearchFP"/>
 			</Fallback>
+			<Fallback name="TDFallback">
+				<TDNearby name="TDNearby"/>
+				<GotoTD name="GotoTD"/>
+			</Fallback>
 		</Sequence>
 	</BehaviorTree>
 </root>

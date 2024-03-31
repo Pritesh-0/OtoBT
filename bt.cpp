@@ -172,6 +172,38 @@ class SearchFP : public BT::SyncActionNode
                 }
 };
 
+//TDNearby
+class TDNearby : public BT::SyncActionNode
+{
+        public:
+                explicit TDNearby(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Checking if Rover is near to Tube Drop: "<<this->name() <<std::endl;
+                        int status;std::cin>>status;
+                        if(status){
+                                std::cout<<"Rover is near to Tube Drop"<<std::endl;
+                                return BT::NodeStatus::SUCCESS;
+                        }
+                        else{
+                                return BT::NodeStatus::FAILURE;
+                        }
+                }
+};
+
+//GotoTD
+class GotoTD : public BT::SyncActionNode
+{
+        public:
+                explicit GotoTD(const std::string &name) : BT::SyncActionNode(name, {})
+                        {}
+                BT::NodeStatus tick() override
+                {
+                        std::cout<<"Rover moves near to the Tube Drop: "<<this->name() <<std::endl;
+                        return BT::NodeStatus::SUCCESS;
+                }
+};
 
 
 
@@ -189,6 +221,8 @@ int main()
 	factory.registerNodeType<GotoStorage>("GotoStorage");
 	factory.registerNodeType<AtFP>("AtFP");
 	factory.registerNodeType<SearchFP>("SearchFP");
+	factory.registerNodeType<TDNearby>("TDNearby");
+	factory.registerNodeType<GotoTD>("GotoTD");
 
 
 	auto tree = factory.createTreeFromFile("./../bt_tree.xml");
