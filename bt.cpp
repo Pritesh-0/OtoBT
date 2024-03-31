@@ -55,8 +55,6 @@ class TubeFound : public BT::SyncActionNode
                         else{
                                 return BT::NodeStatus::FAILURE;
                         }
-
-                        return BT::NodeStatus::SUCCESS;
                 }
 };
 
@@ -155,7 +153,6 @@ class AtFP : public BT::SyncActionNode
                         else{
                                 return BT::NodeStatus::FAILURE;
                         }
-
                 }
 };
 
