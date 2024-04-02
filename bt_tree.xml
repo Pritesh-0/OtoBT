@@ -7,12 +7,12 @@
 			</Fallback>
 			<Fallback name="TSFallback">
 				<TubeFound name="TubeFound"/>
-				<SearchTube name="SearchTube"/>
+				<SearchTube name="SearchTube" TubePose="{Pose}"/>
 			</Fallback>
 			<Sequence name="TubePlacingSequence">
-				<GotoTube name="GotoTube"/>
+				<GotoTube name="GotoTube" TubePose="{Pose}"/>
 				<OpenGripper name="OpenGripper"/>
-				<ApproachTube name="ApproachTube"/>
+				<ApproachTube name="ApproachTube" TubePose="{Pose}"/>
 				<CloseGripper name="CloseGripper"/>
 				<GotoStorage name="GotoStorage"/>
 				<OpenGripper name="OpenGripper"/>

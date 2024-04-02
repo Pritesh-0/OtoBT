@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 #include<chrono>
 #include "behaviortree_cpp/action_node.h"
 #include "behaviortree_cpp/bt_factory.h"
@@ -62,11 +63,18 @@ class TubeFound : public BT::SyncActionNode
 class SearchTube : public BT::SyncActionNode
 {
         public:
-                explicit SearchTube(const std::string &name) : BT::SyncActionNode(name, {})
+                explicit SearchTube(const std::string &name, const BT::NodeConfig &config) : BT::SyncActionNode(name, config)
                         {}
+
+		static BT::PortsList providedPorts(){
+    			return {BT::OutputPort<std::vector<double>>("TubePose")};
+		}
+
                 BT::NodeStatus tick() override
                 {
                         std::cout<<"Searching for Tube\nTube Found: "<<this->name() <<std::endl;
+			std::vector<double> pose{0.6,0.4,0.3};
+			BT::TreeNode::setOutput("TubePose",pose);
                         return BT::NodeStatus::SUCCESS;
                 }
 };
@@ -75,10 +83,25 @@ class SearchTube : public BT::SyncActionNode
 class GotoTube : public BT::SyncActionNode
 {
         public:
-                explicit GotoTube(const std::string &name) : BT::SyncActionNode(name, {})
+                explicit GotoTube(const std::string &name, const BT::NodeConfig &config) : BT::SyncActionNode(name, config)
                         {}
+
+		static BT::PortsList providedPorts(){
+                        return {BT::InputPort<std::vector<double>>("TubePose")};
+                }
+
                 BT::NodeStatus tick() override
                 {
+			auto msg = getInput<std::vector<double>>("TubePose");
+
+			if (!msg){
+				throw BT::RuntimeError("missing required input[message]: ", msg.error());
+			}
+
+			for(const auto pval : msg.value()){
+				std::cout<<pval<<' ';
+			}
+
                         std::cout<<"Going towards Tube: "<<this->name() <<std::endl;
                         return BT::NodeStatus::SUCCESS;
                 }
@@ -114,10 +137,25 @@ class CloseGripper : public BT::SyncActionNode
 class ApproachTube : public BT::SyncActionNode
 {
         public:
-                explicit ApproachTube(const std::string &name) : BT::SyncActionNode(name, {})
+                explicit ApproachTube(const std::string &name, const BT::NodeConfig &config) : BT::SyncActionNode(name, config)
                         {}
+		
+		static BT::PortsList providedPorts(){
+                        return {BT::InputPort<std::vector<double>>("TubePose")};
+                }
+
                 BT::NodeStatus tick() override
                 {
+			auto msg = getInput<std::vector<double>>("TubePose");
+
+                        if (!msg){
+                                throw BT::RuntimeError("missing required input[message]: ", msg.error());
+                        }
+
+                        for(const auto pval : msg.value()){
+                                std::cout<<pval<<' ';
+                        }
+
                         std::cout<<"Approaching the Tube using Arm: "<<this->name() <<std::endl;
                         return BT::NodeStatus::SUCCESS;
                 }
